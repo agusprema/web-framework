@@ -41,4 +41,32 @@ class ProdukController extends Controller
 
         return redirect()->to('produk')->with('msg', $msg);
     }
+
+    public function edit($id)
+    {
+        $data = Produk::where('id', $id)->first();
+
+        return view('produk.edit')->with(['data' => $data]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $data = [
+            'nama_produk'   => $request->nama_produk,
+            'kategori'      => $request->kategori,
+            'harga'         => $request->harga,
+            'stok'          => $request->stok,
+            'deskripsi'     => $request->deskripsi
+        ];
+
+        $result = Produk::where('id', $id)->update($data);
+
+        if ($result) {
+            $msg = ['alert' => 'success', 'msg' => 'Berhasil Edit Data'];
+        } else {
+            $msg = ['alert' => 'danger', 'msg' => 'Gagal Edit Data'];
+        }
+
+        return redirect()->to('produk')->with('msg', $msg);
+    }
 }
