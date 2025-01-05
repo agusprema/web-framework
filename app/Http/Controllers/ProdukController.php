@@ -7,6 +7,11 @@ use App\Models\Produk;
 
 class ProdukController extends Controller
 {
+    private $message = [
+        'required'      => 'Input :attribute harus diisi.',
+        'unique'        => 'Data :attribute sudah digunakan.',
+    ];
+
     public function index()
     {
         $data = Produk::get();
@@ -23,6 +28,15 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nama_produk'               => ['required', 'unique:produks'],
+            'kategori'                  => ['required'],
+            'harga'                     => ['required', 'integer'],
+            'stok'                      => ['required', 'integer'],
+            'deskripsi'                 => ['required']
+        ], $this->message);
+
         $data = [
             'nama_produk'   => $request->nama_produk,
             'kategori'      => $request->kategori,
@@ -51,6 +65,14 @@ class ProdukController extends Controller
 
     public function update($id, Request $request)
     {
+        $request->validate([
+            'nama_produk'               => ['required'],
+            'kategori'                  => ['required'],
+            'harga'                     => ['required', 'integer'],
+            'stok'                      => ['required', 'integer'],
+            'deskripsi'                 => ['required']
+        ], $this->message);
+
         $data = [
             'nama_produk'   => $request->nama_produk,
             'kategori'      => $request->kategori,
@@ -65,6 +87,19 @@ class ProdukController extends Controller
             $msg = ['alert' => 'success', 'msg' => 'Berhasil Edit Data'];
         } else {
             $msg = ['alert' => 'danger', 'msg' => 'Gagal Edit Data'];
+        }
+
+        return redirect()->to('produk')->with('msg', $msg);
+    }
+
+    public function destroy($id)
+    {
+        $result = Produk::where('id', $id)->delete();
+
+        if ($result) {
+            $msg = ['alert' => 'success', 'msg' => 'Berhasil Delete Data'];
+        } else {
+            $msg = ['alert' => 'danger', 'msg' => 'Gagal Delete Data'];
         }
 
         return redirect()->to('produk')->with('msg', $msg);

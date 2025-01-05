@@ -21,7 +21,7 @@ class MahasiswaSeeder extends Seeder
             'jenis_kelamin'     => fake()->randomElement(['LAKI-LAKI', 'PEREMPUAN']),
             'alamat'            => fake()->state(),
             'tanggal_lahir'     => fake()->date('Y-m-d'),
-            'jurusan'           => 'TI-MDI',
+            'jurusan_id'           => 1,
             'tahun_angkatan'    => fake()->date('Y'),
         ]);
     }

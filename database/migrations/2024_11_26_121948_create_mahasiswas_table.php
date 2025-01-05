@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['LAKI-LAKI', 'PEREMPUAN'])->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->enum('jurusan', ['TI-MDI', 'TI-PAR', 'TI-KAB', 'RSK', 'DKV', 'BD'])->nullable();
+            $table->bigInteger('jurusan_id')->nullable();
             $table->year('tahun_angkatan')->nullable();
             $table->timestamps();
         });

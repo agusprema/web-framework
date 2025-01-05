@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
-@section('title', 'Data Mahasiswa')
+@section('title', 'Data Riwayat Pendidikan')
 
 @section('content_header')
     <div class="row">
         <div class="col">
-            <h1>Data Mahasiswa</h1>
+            <h1>Data Riwayat Pendidikan</h1>
         </div>
         <div class="col text-end">
-            <a href="{{ url('mahasiswa/create') }}" class="mt-3 btn btn-sm btn-primary">Tambah</a>
+            <a href="{{ url('riwayat-pendidikan/'. $mhs_id .'/create') }}" class="mt-3 btn btn-sm btn-primary">Tambah</a>
         </div>
     </div>
 @stop
@@ -25,11 +25,11 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Jurusan</th>
-                <th>Tahun Angkatan</th>
+                <th>Jenjang</th>
+                <th>Nama Sekolah</th>
+                <th>Alamat</th>
+                <th>Tahun masuk</th>
+                <th>Tahun lulus</th>
                 <th class="text-center">Aksi</th>
             </tr>
         </thead>
@@ -37,15 +37,14 @@
             @foreach ($data as $key => $val)
                 <tr>
                     <td>{{ ($key + 1) }}.</td>
-                    <td>{{ $val->nim }}</td>
-                    <td>{{ $val->nama }}</td>
-                    <td>{{ $val->jenis_kelamin }}</td>
-                    <td>{{ $val->jurusan->nama }}</td>
-                    <td>{{ $val->tahun_angkatan }}</td>
+                    <td>{{ $val->jenjang }}</td>
+                    <td>{{ $val->nama_sekolah }}</td>
+                    <td>{{ $val->alamat }}</td>
+                    <td>{{ $val->tahun_masuk }}</td>
+                    <td>{{ $val->tahun_lulus }}</td>
                     <td class="text-center">
-                        <a href="{{ url('mahasiswa/update/'. $val->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                        <a href="{{ url('mahasiswa/delete/'. $val->id) }}" class="btn btn-sm btn-danger">Hapus</a>
-                        <a href="{{ url('riwayat-pendidikan/'. $val->id) }}" class="btn btn-sm btn-success">Riwayat Pendidikan</a>
+                        <a href="{{ url('riwayat-pendidikan/'. $mhs_id. '/update/'. $val->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                        <a href="{{ url('riwayat-pendidikan/'. $mhs_id. '/delete/'. $val->id) }}" class="btn btn-sm btn-danger">Hapus</a>
                     </td>
                 </tr>
             @endforeach
